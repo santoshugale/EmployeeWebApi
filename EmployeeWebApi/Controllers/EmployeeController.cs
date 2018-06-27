@@ -19,10 +19,23 @@ namespace EmployeeWebApi.Controllers
             return Ok(employeeBuisnessLogic.GetEmpList());
         }
 
+        [HttpGet]
+        [ActionName("GetEmployee")]
+        public IHttpActionResult FindEmployee(int id)
+        {
+            return Ok(employeeBuisnessLogic.FindEmployeeById(id));
+        }
+
         [HttpPost]
         public IHttpActionResult AddEmployee([FromBody] Employee employee)
         {
             return Ok(employeeBuisnessLogic.AddEmployee(employee));
         }
+
+        // To prevent a method from getting invoked as an action, 
+        //use the NonAction attribute. This signals to the framework that the method is not an action, 
+        //even if it would otherwise match the routing rules.
+        // Not an action method.
+        // [NonAction]
     }
 }

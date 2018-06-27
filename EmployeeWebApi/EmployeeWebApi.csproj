@@ -109,7 +109,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BusinessLogic\employee.xml" />
+    <Content Include="BusinessLogic\employee.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />

@@ -1,11 +1,9 @@
 ﻿using EmployeeWebApi.Models;
-using System.Collections.Generic;
 using System.IO;
-using System.Xml.Linq;
 using System.Xml.Serialization;
-using System;
 using System.Xml;
 using System.Text;
+using System;
 
 namespace EmployeeWebApi.BusinessLogic
 {
@@ -25,6 +23,18 @@ namespace EmployeeWebApi.BusinessLogic
             using (FileStream fileStream = new FileStream(path, FileMode.Open))
             {
                 result = (EmployeeList)serializer.Deserialize(fileStream);
+            }
+            return result;
+        }
+
+        public Employee FindEmployeeById(int id)
+        {
+            Employee result;
+
+            using (FileStream fs = new FileStream(path, FileMode.Open))
+            {
+                result = ((EmployeeList)serializer.Deserialize(fs)).Employees.Find(emp => emp.Id == id);
+                //result = ((EmployeeList)serializer.Deserialize(fs)).Employees.Find(emp => { return emp.Id == id; });
             }
             return result;
         }
