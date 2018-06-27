@@ -17,6 +17,7 @@ namespace EmployeeWebApi.BusinessLogic
             serializer = new XmlSerializer(typeof(EmployeeList));
             path = System.Web.HttpContext.Current.Request.MapPath("~\\BusinessLogic\\employee.xml");
         }
+
         public EmployeeList GetEmpList()
         {
             EmployeeList result;
@@ -39,6 +40,60 @@ namespace EmployeeWebApi.BusinessLogic
             return result;
         }
 
+        public int UpdateEmployee(Employee employee)
+        {
+            EmployeeList result;
+            if (File.Exists(path))
+            {
+                using (FileStream fileStream = new FileStream(path, FileMode.Open))
+                {
+                    result = (EmployeeList)serializer.Deserialize(fileStream);
+                    fileStream.Close();
+                }
+                var employeeFound = result.Employees.Find(emp => emp.Id == employee.Id);
+                if (employeeFound != null)
+                {
+                    employeeFound.Id = employee.Id;
+                    employeeFound.City = employee.City;
+                    employeeFound.Name = employee.Name;
+                    employeeFound.Phone = employee.Phone;
+                    using (FileStream fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        XmlWriter writer = new XmlTextWriter(fileStream, Encoding.Unicode);
+                        serializer.Serialize(writer, result);
+                        writer.Close();
+                        fileStream.Close();
+                    }
+                }
+            }
+            return 0;
+        }
+
+        public int DeleteEmployee(int id)
+        {
+            EmployeeList result;
+            if (File.Exists(path))
+            {
+                using (FileStream fileStream = new FileStream(path, FileMode.Open))
+                {
+                    result = (EmployeeList)serializer.Deserialize(fileStream);
+                    fileStream.Close();
+                }
+
+                var employeeFound = result.Employees.Find(emp => emp.Id == id);
+                result.Employees.Remove(employeeFound);
+
+                using (FileStream fileStream = new FileStream(path, FileMode.Create))
+                {
+                    XmlWriter writer = new XmlTextWriter(fileStream, Encoding.Unicode);
+                    serializer.Serialize(writer, result);
+                    writer.Close();
+                    fileStream.Close();
+                }
+            }
+            return 0;
+        }
+
         public int AddEmployee(Employee employee)
         {
             EmployeeList result;
@@ -47,13 +102,15 @@ namespace EmployeeWebApi.BusinessLogic
                 using (FileStream fileStream = new FileStream(path, FileMode.Open))
                 {
                     result = (EmployeeList)serializer.Deserialize(fileStream);
+                    fileStream.Close();
                 }
                 result.Employees.Add(employee);
-                using (FileStream fileStream = new FileStream(path, FileMode.Open))
+                using (FileStream fileStream = new FileStream(path, FileMode.Create))
                 {
                     XmlWriter writer = new XmlTextWriter(fileStream, Encoding.Unicode);
                     serializer.Serialize(writer, result);
                     writer.Close();
+                    fileStream.Close();
                 }
             }
             return 0;

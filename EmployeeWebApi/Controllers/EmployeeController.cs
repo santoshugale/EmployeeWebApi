@@ -1,9 +1,11 @@
 ﻿using EmployeeWebApi.BusinessLogic;
 using EmployeeWebApi.Models;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace EmployeeWebApi.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class EmployeeController : ApiController
     {
         private EmployeeBuisnessLogic employeeBuisnessLogic;
@@ -16,7 +18,7 @@ namespace EmployeeWebApi.Controllers
         [HttpGet]
         public IHttpActionResult GetEmployeeList()
         {
-            return Ok(employeeBuisnessLogic.GetEmpList());
+            return Ok(employeeBuisnessLogic.GetEmpList().Employees);
         }
 
         [HttpGet]
@@ -26,10 +28,22 @@ namespace EmployeeWebApi.Controllers
             return Ok(employeeBuisnessLogic.FindEmployeeById(id));
         }
 
+        [HttpPut]
+        public IHttpActionResult UpdateEmployee([FromBody] Employee employee)
+        {
+            return Ok(employeeBuisnessLogic.UpdateEmployee(employee));
+        }
+
         [HttpPost]
         public IHttpActionResult AddEmployee([FromBody] Employee employee)
         {
             return Ok(employeeBuisnessLogic.AddEmployee(employee));
+        }
+
+        [HttpDelete]
+        public IHttpActionResult DeleteEmployee(int id)
+        {
+            return Ok(employeeBuisnessLogic.DeleteEmployee(id));
         }
 
         // To prevent a method from getting invoked as an action, 
