@@ -6,7 +6,7 @@ using System.Web.Http;
 
 namespace EmployeeWebApi.Controllers
 {
-    // [EnableCors(origins: "*", headers: "*", methods: "*")] // no need to privide here as its provided globally
+    //[EnableCors(origins: "*", headers: "*", methods: "*")] // no need to provide here as its provided globally
     public class EmployeeController : ApiController
     {
         private EmployeeBuisnessLogic employeeBuisnessLogic;

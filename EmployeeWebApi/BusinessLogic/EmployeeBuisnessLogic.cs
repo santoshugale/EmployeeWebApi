@@ -104,6 +104,7 @@ namespace EmployeeWebApi.BusinessLogic
                     result = (EmployeeList)serializer.Deserialize(fileStream);
                     fileStream.Close();
                 }
+                employee.Id = result.NextId++;
                 result.Employees.Add(employee);
                 using (FileStream fileStream = new FileStream(path, FileMode.Create))
                 {

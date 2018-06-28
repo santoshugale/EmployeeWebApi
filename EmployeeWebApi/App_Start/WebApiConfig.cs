@@ -12,12 +12,12 @@ namespace EmployeeWebApi
         {
             // Web API configuration and services
 
-            // Web API routes
-            config.MapHttpAttributeRoutes();
-
             //Enabling cross origin resource sharing 
             var cors = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(cors);
+
+            // Web API routes
+            config.MapHttpAttributeRoutes();
 
             //Adding exception filter
             config.Filters.Add(new NotImplExceptionFilterAttribute());
