@@ -131,9 +131,12 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BusinessLogic\EmployeeBuisnessLogic.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Filters\NotImplExceptionFilterAttribute .cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="GlobalExceptionHandling\ExceptionHandler.cs" />
+    <Compile Include="GlobalExceptionHandling\OopsExceptionHandler.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

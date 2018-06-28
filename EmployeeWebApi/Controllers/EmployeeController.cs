@@ -1,11 +1,12 @@
 ﻿using EmployeeWebApi.BusinessLogic;
 using EmployeeWebApi.Models;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Cors;
 
 namespace EmployeeWebApi.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    // [EnableCors(origins: "*", headers: "*", methods: "*")] // no need to privide here as its provided globally
     public class EmployeeController : ApiController
     {
         private EmployeeBuisnessLogic employeeBuisnessLogic;
@@ -23,9 +24,20 @@ namespace EmployeeWebApi.Controllers
 
         [HttpGet]
         [ActionName("GetEmployee")]
-        public IHttpActionResult FindEmployee(int id)
+        public HttpResponseMessage FindEmployee(int id)
         {
-            return Ok(employeeBuisnessLogic.FindEmployeeById(id));
+            if (!ModelState.IsValid) return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+            Employee emp = employeeBuisnessLogic.FindEmployeeById(id);
+            if (emp == null)
+            {
+                var httpResMsg = new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("No Employee With Id = {0}", id)),
+                    ReasonPhrase = "Product ID Not Found"
+                };
+                throw new HttpResponseException(httpResMsg);
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, emp);
         }
 
         [HttpPut]
