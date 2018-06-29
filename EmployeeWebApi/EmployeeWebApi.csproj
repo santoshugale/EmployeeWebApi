@@ -171,6 +171,9 @@
     <Compile Include="GlobalExceptionHandling\ExceptionHandler.cs" />
     <Compile Include="GlobalExceptionHandling\OopsExceptionHandler.cs" />
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="PathProvider\IPathProvider.cs" />
+    <Compile Include="PathProvider\ServerPathProvider.cs" />
+    <Compile Include="PathProvider\TestProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnityResolver.cs" />
   </ItemGroup>

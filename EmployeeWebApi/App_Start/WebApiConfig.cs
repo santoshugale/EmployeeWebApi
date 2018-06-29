@@ -6,6 +6,7 @@ using EmployeeWebApi.GlobalExceptionHandling;
 using Unity;
 using EmployeeWebApi.BusinessLogic;
 using Unity.Lifetime;
+using EmployeeWebApi.PathProvider;
 
 namespace EmployeeWebApi
 {
@@ -32,6 +33,8 @@ namespace EmployeeWebApi
             //Dependancy Injector
             var container = new UnityContainer();
             container.RegisterType<IEmployeeBuisnessLogic, EmployeeBuisnessLogic>(new HierarchicalLifetimeManager());
+            container.RegisterType<IPathProvider, ServerPathProvider>(new HierarchicalLifetimeManager());
+
             config.DependencyResolver = new UnityResolver(container);
 
             config.Routes.MapHttpRoute(

@@ -3,6 +3,7 @@ using System.IO;
 using System.Xml.Serialization;
 using System.Xml;
 using System.Text;
+using EmployeeWebApi.PathProvider;
 
 namespace EmployeeWebApi.BusinessLogic
 {
@@ -10,11 +11,10 @@ namespace EmployeeWebApi.BusinessLogic
     {
         XmlSerializer serializer;
         string path;
-
-        public EmployeeBuisnessLogic()
+        public EmployeeBuisnessLogic(IPathProvider _pathProvider)
         {
             serializer = new XmlSerializer(typeof(EmployeeList));
-            path = System.Web.HttpContext.Current.Request.MapPath("~\\BusinessLogic\\employee.xml");
+            path = _pathProvider.MapPath();
         }
 
         public virtual EmployeeList GetEmpList()
