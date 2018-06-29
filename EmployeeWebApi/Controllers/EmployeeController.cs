@@ -9,11 +9,10 @@ namespace EmployeeWebApi.Controllers
     //[EnableCors(origins: "*", headers: "*", methods: "*")] // no need to provide here as its provided globally
     public class EmployeeController : ApiController
     {
-        private EmployeeBuisnessLogic employeeBuisnessLogic;
-        public EmployeeController()
+        private IEmployeeBuisnessLogic employeeBuisnessLogic;
+        public EmployeeController(IEmployeeBuisnessLogic employeeBuisnessLogicObj)
         {
-            // use simple injector to get the buisnes logic obj
-            employeeBuisnessLogic = new EmployeeBuisnessLogic();
+            employeeBuisnessLogic = employeeBuisnessLogicObj;
         }
 
         [HttpGet]

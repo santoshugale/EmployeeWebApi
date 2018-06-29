@@ -3,6 +3,9 @@ using System.Web.Http.Cors;
 using EmployeeWebApi.Filters;
 using System.Web.Http.ExceptionHandling;
 using EmployeeWebApi.GlobalExceptionHandling;
+using Unity;
+using EmployeeWebApi.BusinessLogic;
+using Unity.Lifetime;
 
 namespace EmployeeWebApi
 {
@@ -25,6 +28,11 @@ namespace EmployeeWebApi
             //Global Exception handler
             //We have to replcae the IExceptionHandler as there can be only one global exception handler exist
             config.Services.Replace(typeof(IExceptionHandler), new OopsExceptionHandler());
+
+            //Dependancy Injector
+            var container = new UnityContainer();
+            container.RegisterType<IEmployeeBuisnessLogic, EmployeeBuisnessLogic>(new HierarchicalLifetimeManager());
+            config.DependencyResolver = new UnityResolver(container);
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

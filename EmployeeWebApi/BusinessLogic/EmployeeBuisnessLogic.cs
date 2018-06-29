@@ -3,11 +3,10 @@ using System.IO;
 using System.Xml.Serialization;
 using System.Xml;
 using System.Text;
-using System;
 
 namespace EmployeeWebApi.BusinessLogic
 {
-    public class EmployeeBuisnessLogic
+    public class EmployeeBuisnessLogic : IEmployeeBuisnessLogic
     {
         XmlSerializer serializer;
         string path;
@@ -18,7 +17,7 @@ namespace EmployeeWebApi.BusinessLogic
             path = System.Web.HttpContext.Current.Request.MapPath("~\\BusinessLogic\\employee.xml");
         }
 
-        public EmployeeList GetEmpList()
+        public virtual EmployeeList GetEmpList()
         {
             EmployeeList result;
             using (FileStream fileStream = new FileStream(path, FileMode.Open))
