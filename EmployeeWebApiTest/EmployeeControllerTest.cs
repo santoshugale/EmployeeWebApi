@@ -5,7 +5,6 @@ using EmployeeWebApi.BusinessLogic;
 using Moq;
 using System.Web.Http.Results;
 using System.Collections.Generic;
-using EmployeeWebApi.PathProvider;
 
 namespace EmployeeWebApiTest
 {
@@ -15,7 +14,7 @@ namespace EmployeeWebApiTest
         [TestMethod]
         public void GetEmployeeListShouldReturnAllEmployees()
         {
-            var anc = new TestProvider().MapPath();
+            Mock<IEmployeeBuisnessLogic> mock = new Mock<IEmployeeBuisnessLogic>();
             mock.Setup(x => x.GetEmpList()).Returns(new EmployeeList
             {
                 Employees = new List<Employee>
