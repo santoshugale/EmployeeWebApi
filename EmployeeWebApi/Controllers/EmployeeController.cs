@@ -15,12 +15,30 @@ namespace EmployeeWebApi.Controllers
             employeeBuisnessLogic = employeeBuisnessLogicObj;
         }
 
+        /// <summary>
+        /// Get All the Employees
+        /// </summary>
+        /// <remarks>
+        /// Simple comment
+        /// </remarks>
+        /// <param></param>
+        /// <returns>Returns employees</returns>
+        /// <response code="200">Returns employees</response>
         [HttpGet]
         public IHttpActionResult GetEmployeeList()
         {
             return Ok(employeeBuisnessLogic.GetEmpList().Employees);
         }
 
+        /// <summary>
+        /// Get Employee by id
+        /// </summary>
+        /// <remarks>
+        /// Simple comment
+        /// </remarks>
+        /// <param name="id"></param>
+        /// <returns>Returns employee</returns>
+        /// <response code="200">Returns employee</response>
         [HttpGet]
         [ActionName("GetEmployee")]
         public HttpResponseMessage FindEmployee(int id)
